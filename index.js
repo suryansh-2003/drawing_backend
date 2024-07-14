@@ -4,7 +4,8 @@ const { Server } = require("socket.io");
 const cors = require('cors');
 
 const app = express();
-const URL = 'http://localhost:3000'
+const isDev = app.settings.env === 'development'
+const URL = isDev ? 'http://localhost:3000' : 'https://sketch-ease.vercel.app'
 app.use(cors({origin: URL}))
 const httpServer = createServer(app);
 const io = new Server(httpServer, { cors: URL });
@@ -25,4 +26,4 @@ io.on("connection", (socket) => {
   })
 });
 
-httpServer.listen(5001);
+httpServer.listen(5000);
